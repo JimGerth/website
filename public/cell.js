@@ -1,4 +1,4 @@
-class cell {
+class Cell {
   constructor(id, constraint) {
     this.id = id;
     this.constraint = constraint;
@@ -8,9 +8,9 @@ class cell {
     this.neighbours = [null, null, null, null, null, null];
   }
 
-  get class => {
-    return `.cssclass`;
-  }
+  // get class => {
+  //   return `.cssclass`;
+  // }
 
   addNeighbour(direction, neighbour) {
     this.neighbours[direction] = neighbour;
@@ -18,12 +18,12 @@ class cell {
 
   show(context) {
     // calculate the points of the hexagon
-    let points[];
-    for (angle = 0; a < 360; a += 60) {
+    let points = [];
+    for (let angle = 0; angle < 360; angle += 60) {
       let radians = angle * (Math.PI / 180);
-      points.push(Point(
-        context.scale * Math.cos(radians),
-        context.scale * Math.sin(radians)
+      points.push(new Point(
+        context.x + context.scale * Math.sin(radians),
+        context.y + context.scale * Math.cos(radians)
       ));
     }
     // remove the previous hexagon
@@ -31,7 +31,8 @@ class cell {
     // add the new hexagon with updated state
     $(`#gameboard`).append(`<polygon
       id="${this.id}"
-      class="${cell}"
+      class="cell"
+      onclick="handleClick(${this.id})"
       points="
         ${points[0].x},${points[0].y}
         ${points[1].x},${points[1].y}
@@ -39,12 +40,8 @@ class cell {
         ${points[3].x},${points[3].y}
         ${points[4].x},${points[4].y}
         ${points[5].x},${points[5].y}
-    "</polygon>`);
-    // add click event handler to <polygon> element
-    $(`#${this.id}`).click(this.handleClick);
-  }
-
-  handleClick() {
-    alert("clicked hexagon!");
+    "/>`);
+    // refresh the svg to show new element
+    $(`body`).html($(`body`).html());
   }
 }
