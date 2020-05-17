@@ -45,3 +45,39 @@ class Cell {
     $(`body`).html($(`body`).html());
   }
 }
+
+
+
+
+
+// const DIR = {
+// 	TR: 0,
+// 	R: 1,
+// 	BR: 2,
+// 	BL: 3,
+// 	L: 4,
+// 	TL: 5
+// }
+//
+// class Cell {
+// 	this.free; // bool if cell is filled or free
+// 	this.constraint; // [0,3] only if filled
+// 	this.neighbours; // array of cells with a DIR as index
+// 	this.illuminated; // array of DIRs, from which the cell is being lit
+// 	this.lightsource; // bool, if lamp is placed in cell
+//
+// 	this.from = (this, from) => return this.from.includes(dir);
+//
+// 	this.propagate = () => {
+// 		for (dir = 0; dir < 6; dir++) {
+// 			if (this.free && this.neighbours[dir].from(dir)) {
+// 				this.illuminated.push(dir);
+// 			}
+// 		}
+// 	}
+//
+// 	show() {
+// 		// change <polygon> element with ID to appropriate class .lamp/.black/etc.
+//    // yes! the svg element doesnt have to be added again each time! just change the css class...
+// 	}
+// }
