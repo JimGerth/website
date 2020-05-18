@@ -12,27 +12,25 @@ class Cell {
   //   return `.cssclass`;
   // }
 
+  get element => $(`#${this.id}`);
+
   addNeighbour(direction, neighbour) {
     this.neighbours[direction] = neighbour;
   }
 
-  show(context) {
+  setup(context) {
     // calculate the points of the hexagon
     let points = [];
-    for (let angle = 0; angle < 360; angle += 60) {
+    for (let angle = 30; angle < 360; angle += 60) {
       let radians = angle * (Math.PI / 180);
       points.push(new Point(
-        context.x + context.scale * Math.sin(radians),
-        context.y + context.scale * Math.cos(radians)
+        context.x + context.scale * Math.cos(radians),
+        context.y + context.scale * Math.sin(radians)
       ));
     }
-    // remove the previous hexagon
-    $(`#${this.id}`).remove();
-    // add the new hexagon with updated state
+    // add a new <polygon> element with correct location and sizing
     $(`#gameboard`).append(`<polygon
       id="${this.id}"
-      class="cell"
-      onclick="handleClick(${this.id})"
       points="
         ${points[0].x},${points[0].y}
         ${points[1].x},${points[1].y}
@@ -41,8 +39,20 @@ class Cell {
         ${points[4].x},${points[4].y}
         ${points[5].x},${points[5].y}
     "/>`);
-    // refresh the svg to show new element
-    $(`body`).html($(`body`).html());
+    update();
+  }
+
+  connect() {
+    $(`#${this.id}`).click(this.click);
+  }
+
+  click() {
+    console.log(`you clicked cell number ${this.id}`);
+  }
+
+  update() {
+    // set correct css class of cell based on state of this object
+    this.element.addClass(`cell`);
   }
 }
 
