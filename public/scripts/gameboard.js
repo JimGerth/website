@@ -2,10 +2,10 @@ class Gameboard {
   constructor(size, scale) {
     this.size = size;
     this.scale = scale;
-    this.xoffset = 1.73205080757 * scale;
-    this.yoffset = scale;
+    this.xoffset = scale * 1.5;
+    this.yoffset = scale * 0.86602540378;
     this.cells = [];
-    setup();
+    this.setup();
   }
 
   setup() {
@@ -17,7 +17,7 @@ class Gameboard {
     // reparse body to make the new svg elements actually show up
     $(`body`).html($(`body`).html());
     // connect callbacks
-    connect();
+    this.connect();
   }
 
   connect() {

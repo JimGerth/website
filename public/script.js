@@ -1,22 +1,19 @@
 $(document).ready(() => {
+  let scale = 50;
+  new Cell(1).setup({
+    x: 400,
+    y: 100,
+    scale: scale
+  });
+  new Cell(2).setup({
+    x: 400 - 1.5 * scale,
+    y: 100 + 0.866 * scale,
+    scale: scale
+  });
+  new Cell(3).setup({
+    x: 400 + 1.5 * scale,
+    y: 100 + 0.866 * scale,
+    scale: scale
+  });
   new Gameboard();
-  // new Cell(1).show({
-  //   x: 100,
-  //   y: 100,
-  //   scale: 100
-  // });
-  // new Cell(2).show({
-  //   x: 273,
-  //   y: 100,
-  //   scale: 100
-  // });
-  // new Cell(3).show({
-  //   x: 100 + ((273-100)/2),
-  //   y: 250,
-  //   scale: 100
-  // });
 });
-
-let handleClick = (e) => {
-  console.log(e);
-}

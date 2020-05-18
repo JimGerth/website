@@ -12,7 +12,9 @@ class Cell {
   //   return `.cssclass`;
   // }
 
-  get element => $(`#${this.id}`);
+  get element() {
+    return $(`#${this.id}`);
+  }
 
   addNeighbour(direction, neighbour) {
     this.neighbours[direction] = neighbour;
@@ -21,7 +23,7 @@ class Cell {
   setup(context) {
     // calculate the points of the hexagon
     let points = [];
-    for (let angle = 30; angle < 360; angle += 60) {
+    for (let angle = 0; angle < 360; angle += 60) {
       let radians = angle * (Math.PI / 180);
       points.push(new Point(
         context.x + context.scale * Math.cos(radians),
@@ -39,7 +41,7 @@ class Cell {
         ${points[4].x},${points[4].y}
         ${points[5].x},${points[5].y}
     "/>`);
-    update();
+    this.update();
   }
 
   connect() {
