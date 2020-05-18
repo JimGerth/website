@@ -15,5 +15,5 @@ $(document).ready(() => {
     y: 100 + 0.866 * scale,
     scale: scale
   });
-  new Gameboard();
+  new Gameboard(8);
 });
