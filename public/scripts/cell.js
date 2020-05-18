@@ -1,11 +1,15 @@
 class Cell {
-  constructor(id, constraint) {
+  constructor(id, constraint, x, y, scale) {
     this.id = id;
     this.constraint = constraint;
+    this.x = x;
+    this.y = y;
+    this.scale = scale;
     this.free = constraint == null;
     this.lightsource = false;
     this.illuminated = false;
     this.neighbours = [null, null, null, null, null, null];
+    this.setup();
   }
 
   // get class => {
@@ -20,14 +24,14 @@ class Cell {
     this.neighbours[direction] = neighbour;
   }
 
-  setup(context) {
+  setup() {
     // calculate the points of the hexagon
     let points = [];
     for (let angle = 0; angle < 360; angle += 60) {
       let radians = angle * (Math.PI / 180);
       points.push(new Point(
-        context.x + context.scale * Math.cos(radians),
-        context.y + context.scale * Math.sin(radians)
+        this.x + this.scale * Math.cos(radians),
+        this.y + this.scale * Math.sin(radians)
       ));
     }
     // add a new <polygon> element with correct location and sizing

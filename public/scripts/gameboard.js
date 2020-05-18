@@ -5,6 +5,9 @@ class Gameboard {
     this.xoffset = scale * 1.5;
     this.yoffset = scale * 0.86602540378;
     this.cells = [];
+    for (let y = 0; y < this.rows; y++) {
+      this.cells[y] = [];
+    }
     this.setup();
   }
 
@@ -14,21 +17,22 @@ class Gameboard {
   setup() {
     // setup cell objects and add them to two dimensional cell array
     // in the right way
+    let id = 0;
     for (let x = 0; x < this.cols; x++) {
       for (let y = 0; y < this.rows; y++) {
         // looping through all possible cell positions
         // find out in which position to actually put a cell
         // if some stuff
-        //    let cell = new Cell(id, constraint);
-        //    cells[y][x] = new Cell(id, constraint);
-        //    cells[y][x].setup({
-        //      x: x * 1.5 * this.scale,
-        //      y: y * 0.86602540378 * this.scale,
-        //      size: this.size
-        //    });
+        // this.cells[y][x] = new Cell(
+        //   id,
+        //   1,
+        //   x * 1.5 * this.scale + this.scale,
+        //   y * 0.86602540378 * this.scale + 0.86602540378 * this.scale,
+        //   this.scale
+        // );
+        id++;
       }
     }
-
     // adding neighbours for all cells
     for (let x = 0; x < this.cols; x++) {
       for (let y = 0; y < this.rows; y++) {
@@ -40,17 +44,15 @@ class Gameboard {
         this.cells[y][x].addNeighbour(direction.topleft, this.cells[y - 1][x - 1]);
       }
     }
-
     // reparse body to make the new svg elements actually show up
     $(`body`).html($(`body`).html());
-
     // connect callbacks
     this.connect();
   }
 
   connect() {
     // connect callbacks to <polygon> elements for each cell
-    for (cell of this.cells) {
+    for (let cell of this.cells) {
       cell.connect();
     }
   }
