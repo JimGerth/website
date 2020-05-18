@@ -22,8 +22,8 @@ class Gameboard {
         //    let cell = new Cell(id, constraint);
         //    cells[y][x] = new Cell(id, constraint);
         //    cells[y][x].setup({
-        //      x: something,
-        //      y: something,
+        //      x: x * 1.5 * this.scale,
+        //      y: y * 0.86602540378 * this.scale,
         //      size: this.size
         //    });
       }
