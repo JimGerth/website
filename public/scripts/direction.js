@@ -4,7 +4,7 @@ const direction = {
   bottomright: 2,
   bottom: 3,
   bottomleft: 4,
-  topeft: 5
+  topleft: 5
 }
 
 Object.freeze(direction);

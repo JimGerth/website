@@ -40,8 +40,8 @@ class Gameboard {
       }
     }
     // adding neighbours for all cells
-    for (let x = 0; x < this.cols; x++) {
-      for (let y = 0; y < this.rows; y++) {
+    for (let y = 0; y < this.rows; y++) {
+      for (let x = 0; x < this.cols; x++) {
         if (this.cells[y][x]){
           if (y - 2 >= 0 && this.cells[y - 2][x]) {
             this.cells[y][x].addNeighbour(direction.top, this.cells[y - 2][x]);

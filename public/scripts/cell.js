@@ -49,7 +49,7 @@ class Cell {
   }
 
   connect() {
-    $(`#${this.id}`).click(this.click);
+    $(`#${this.id}`).click(this.click.bind(this));
   }
 
   click() {
