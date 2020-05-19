@@ -66,15 +66,6 @@ class Cell {
 
 
 
-// const DIR = {
-// 	TR: 0,
-// 	R: 1,
-// 	BR: 2,
-// 	BL: 3,
-// 	L: 4,
-// 	TL: 5
-// }
-//
 // class Cell {
 // 	this.free; // bool if cell is filled or free
 // 	this.constraint; // [0,3] only if filled

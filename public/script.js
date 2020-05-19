@@ -1,3 +1,3 @@
 $(document).ready(() => {
-  new Gameboard(8, 25);
+  new Gameboard(4, 50);
 });
