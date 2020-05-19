@@ -1,3 +1,4 @@
 $(document).ready(() => {
-  new Gameboard(4, 50);
+  // make the logic server side, if possible?
+  new Gameboard(8, 30);
 });

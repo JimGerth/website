@@ -5,23 +5,18 @@ class Cell {
     this.x = x;
     this.y = y;
     this.scale = scale;
+
     this.free = constraint == null;
     this.lightsource = false;
     this.illuminated = false;
-    this.neighbours = [null, null, null, null, null, null];
+
+    this.neighbours = [null, null, null, null, null, null]; // this.adjacent?
+
     this.setup();
   }
 
-  // get class => {
-  //   return `.cssclass`;
-  // }
-
-  get element() {
-    return $(`#${this.id}`);
-  }
-
-  addNeighbour(direction, neighbour) {
-    this.neighbours[direction] = neighbour;
+  get element() { // remove if this is only used in this.connect()
+    return $(`#${this.id}`)
   }
 
   setup() {
@@ -37,6 +32,7 @@ class Cell {
     // add a new <polygon> element with correct location and sizing
     $(`#gameboard`).append(`<polygon
       id="${this.id}"
+      class="cell"
       points="
         ${points[0].x},${points[0].y}
         ${points[1].x},${points[1].y}
@@ -48,17 +44,48 @@ class Cell {
     this.update();
   }
 
-  connect() {
-    $(`#${this.id}`).click(this.click.bind(this));
+  addNeighbour(direction, neighbour) {
+    this.neighbours[direction] = neighbour;
   }
 
-  click() {
+  addCallback() {
+    this.element.click(this.handleClick.bind(this));
+  }
+
+  handleClick() {
     console.log(`you clicked cell number ${this.id}`);
+    this.lamp = !this.lamp;
+
+    this.update();
   }
 
   update() {
-    // set correct css class of cell based on state of this object
-    this.element.addClass(`cell`);
+    this.updateState();
+    this.updateClass();
+    this.updateNeighbours();
+  }
+
+  updateState() {
+    // calculate state of cell based on neighbours
+  }
+
+  updateClass() {
+    if (this.lamp) {
+      this.element.addClass(`lamp`);
+    } else {
+      this.element.removeClass(`lamp`);
+    }
+    if (this.illuminated) {
+      this.element.addClass(`light`);
+    } else {
+      this.element.removeClass(`light`);
+    }
+  }
+
+  updateNeighbours() {
+    // call update on neighbours
+    // (probably only need to update neighbours that would be
+    // illuminated by this cell...)
   }
 }
 

@@ -3,8 +3,6 @@ class Gameboard {
     this.size = size;
     this.scale = scale;
 
-    this.xoffset = scale * 1.5;
-    this.yoffset = scale * 0.86602540378;
     this.rows = 3 * (this.size - 1) + this.size;
     this.cols = 2 * this.size - 1;
 
@@ -20,8 +18,18 @@ class Gameboard {
   }
 
   setup() {
-    // initializing two dimensional cell aray
+    this.setupBoard();
+    this.setupNeighbours();
+    $(`body`).html($(`body`).html());
+    this.setupCallbacks();
+  }
+
+  setupBoard() {
     let id = 0;
+    let xCellOffset = this.scale * 1.5;
+    let yCellOffset = this.scale * 0.86602540378;
+    let xBoardOffset = this.scale;
+    let yBoardOffset = 0.86602540378 * this.scale;
     for (let y = 0; y < this.rows; y++) {
       for (let x = 0; x < this.cols; x++) {
         if (
@@ -31,15 +39,17 @@ class Gameboard {
           this.cells[y][x] = new Cell(
             id,
             1,
-            x * this.xoffset + this.scale, // this.scale = x board offset
-            y * this.yoffset + 0.86602540378 * this.scale, // 0.86602540378 * this.scale = y board offset
+            x * xCellOffset + xBoardOffset, // this.scale = x board offset
+            y * yCellOffset + yBoardOffset, // 0.86602540378 * this.scale = y board offset
             this.scale
           );
           id++;
         }
       }
     }
-    // adding neighbours for all cells
+  }
+
+  setupNeighbours() {
     for (let y = 0; y < this.rows; y++) {
       for (let x = 0; x < this.cols; x++) {
         if (this.cells[y][x]){
@@ -64,29 +74,15 @@ class Gameboard {
         }
       }
     }
-    // reparse body to make the new svg elements actually show up
-    $(`body`).html($(`body`).html());
-    // connect callbacks
-    this.connect();
   }
 
-  connect() {
-    // connect callbacks to <polygon> elements for each cell
+  setupCallbacks() {
     for (let row of this.cells) {
       for (let cell of row) {
         if (cell) {
-          cell.connect();
+          cell.addCallback();
         }
       }
     }
   }
-
-  // might not need this after all
-  // count(size) {
-  //   if (size == 1) {
-  //     return 1;
-  //   } else {
-  //     return count(size - 1) + size * 6 - 6;
-  //   }
-  // }
 }
