@@ -60,22 +60,22 @@ class Gameboard {
     for (let y = 0; y < this.rows; y++) {
       for (let x = 0; x < this.cols; x++) {
         if (this.cells[y][x]){
-          if (y - 2 >= 0 && this.cells[y - 2][x]) {
+          if (y - 2 >= 0) {
             this.cells[y][x].addNeighbour(direction.top, this.cells[y - 2][x]);
           }
-          if (y - 1 >= 0 && x + 1 < this.cols && this.cells[y - 1][x + 1]) {
+          if (y - 1 >= 0 && x + 1 < this.cols) {
             this.cells[y][x].addNeighbour(direction.topright, this.cells[y - 1][x + 1]);
           }
-          if (y + 1 < this.rows && x + 1 < this.cols && this.cells[y + 1][x + 1]) {
+          if (y + 1 < this.rows && x + 1 < this.cols) {
             this.cells[y][x].addNeighbour(direction.bottomright, this.cells[y + 1][x + 1]);
           }
-          if (y + 2 < this.rows && this.cells[y + 2][x]) {
+          if (y + 2 < this.rows) {
             this.cells[y][x].addNeighbour(direction.bottom, this.cells[y + 2][x]);
           }
-          if (y + 1 < this.rows && x - 1 >= 0 && this.cells[y + 1][x - 1]) {
+          if (y + 1 < this.rows && x - 1 >= 0) {
             this.cells[y][x].addNeighbour(direction.bottomleft, this.cells[y + 1][x - 1]);
           }
-          if (y - 1 >=0 && x - 1 >= 0 && this.cells[y - 1][x - 1]) {
+          if (y - 1 >=0 && x - 1 >= 0) {
             this.cells[y][x].addNeighbour(direction.topleft, this.cells[y - 1][x - 1]);
           }
         }

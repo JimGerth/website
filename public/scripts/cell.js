@@ -55,7 +55,7 @@ class Cell {
   handleClick() {
     console.log(`you clicked cell number ${this.id}`);
     this.lamp = !this.lamp;
-
+    
     this.update();
   }
 
