@@ -33,8 +33,15 @@ class Gameboard {
     for (let y = 0; y < this.rows; y++) {
       for (let x = 0; x < this.cols; x++) {
         if (
-          (this.size % 2 == 0 && x % 2 != y % 2) ||
-          (this.size % 2 != 0 && x % 2 == y % 2)
+          (
+            (this.size % 2 == 0 && x % 2 != y % 2) ||
+            (this.size % 2 != 0 && x % 2 == y % 2)
+          ) && (
+            (x + y >= this.size - 1) &&
+            (this.cols - 1 - x + y >= this.size - 1) &&
+            (x + this.rows - 1 - y >= this.size - 1 ) &&
+            ( this.cols - 1 - x + this.rows - 1 - y >= this.size - 1)
+          )
         ) {
           this.cells[y][x] = new Cell(
             id,
