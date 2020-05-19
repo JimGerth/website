@@ -28,8 +28,9 @@ class Gameboard {
     let id = 0;
     let xCellOffset = this.scale * 1.5;
     let yCellOffset = this.scale * 0.86602540378;
-    let xBoardOffset = this.scale;
-    let yBoardOffset = 0.86602540378 * this.scale;
+    let padding = 5;
+    let xBoardOffset = this.scale + padding;
+    let yBoardOffset = 0.86602540378 * this.scale + padding;
     for (let y = 0; y < this.rows; y++) {
       for (let x = 0; x < this.cols; x++) {
         if (
