@@ -1,14 +1,14 @@
 class Cell {
-  constructor(id, constraint, x, y, scale) {
+  constructor(id, free, constraint, x, y, scale) {
     this.id = id;
+    this.free = free;
     this.constraint = constraint;
     this.x = x;
     this.y = y;
     this.scale = scale;
 
-    this.free = constraint == null;
     this.lightsource = false;
-    this.illuminated = false;
+    this.litUpFrom = [false, false, false, false, false, false];
 
     this.neighbours = [null, null, null, null, null, null]; // this.adjacent?
 
@@ -17,6 +17,15 @@ class Cell {
 
   get element() { // remove if this is only used in this.connect()
     return $(`#${this.id}`)
+  }
+
+  get illuminated() {
+    for (var x of this.litUpFrom) {
+      if (x) {
+        return true;
+      }
+    }
+    return false;
   }
 
   setup() {
@@ -53,65 +62,61 @@ class Cell {
   }
 
   handleClick() {
-    console.log(`you clicked cell number ${this.id}`);
-    this.lamp = !this.lamp;
-    
+    if (this.free) {
+      this.lightsource = !this.lightsource;
+    }
     this.update();
   }
 
-  update() {
+  update(direction) {
+    // if direction is given only update the cell in that direction
+    // if not update neighbours in all direcions
     this.updateState();
     this.updateClass();
-    this.updateNeighbours();
+    this.updateNeighbours(direction);
   }
 
   updateState() {
-    // calculate state of cell based on neighbours
+    if (this.free && !this.lightsource) {
+      for (var direction = 0; direction < 6; direction++) {
+        if (this.neighbours[direction]) {
+          this.litUpFrom[direction] =
+            this.neighbours[direction].lightsource ||
+            this.neighbours[direction].litUpFrom[direction];
+        }
+      }
+    }
   }
 
   updateClass() {
-    if (this.lamp) {
-      this.element.addClass(`lamp`);
+    if (this.free) {
+      this.element.removeClass(`wall`);
+      if (this.lightsource) {
+        this.element.addClass(`lightsource`);
+      } else {
+        this.element.removeClass(`lightsource`);
+      }
+      if (this.illuminated) {
+        this.element.addClass(`illuminated`);
+      } else {
+        this.element.removeClass(`illuminated`);
+      }
     } else {
-      this.element.removeClass(`lamp`);
-    }
-    if (this.illuminated) {
-      this.element.addClass(`light`);
-    } else {
-      this.element.removeClass(`light`);
+      this.element.addClass(`wall`);
     }
   }
 
-  updateNeighbours() {
-    // call update on neighbours
-    // (probably only need to update neighbours that would be
-    // illuminated by this cell...)
+  updateNeighbours(direction) {
+    if (direction) {
+      if (this.neighbours[direction]) {
+        this.neighbours[direction].update(direction);
+      }
+    } else {
+      for (var dir = 0; dir < 6; dir++) {
+        if (this.neighbours[dir]) {
+          this.neighbours[dir].update(dir);
+        }
+      }
+    }
   }
 }
-
-
-
-
-
-// class Cell {
-// 	this.free; // bool if cell is filled or free
-// 	this.constraint; // [0,3] only if filled
-// 	this.neighbours; // array of cells with a DIR as index
-// 	this.illuminated; // array of DIRs, from which the cell is being lit
-// 	this.lightsource; // bool, if lamp is placed in cell
-//
-// 	this.from = (this, from) => return this.from.includes(dir);
-//
-// 	this.propagate = () => {
-// 		for (dir = 0; dir < 6; dir++) {
-// 			if (this.free && this.neighbours[dir].from(dir)) {
-// 				this.illuminated.push(dir);
-// 			}
-// 		}
-// 	}
-//
-// 	show() {
-// 		// change <polygon> element with ID to appropriate class .lamp/.black/etc.
-//    // yes! the svg element doesnt have to be added again each time! just change the css class...
-// 	}
-// }

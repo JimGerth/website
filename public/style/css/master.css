@@ -1,1 +1,1 @@
-html,body{margin:0;padding:0}#gameboard{width:100vw;height:100vh}.cell{fill:#fff;stroke:#000}.cell:hover{fill:#f2f2f2}.lamp{fill:#ffb735}.lamp:hover{fill:#ffae1c}
+html,body{margin:0;padding:0}#gameboard{width:100vw;height:100vh}.cell{stroke:#000;fill:#fff}.cell:hover{fill:#f2f2f2}.wall{fill:#000}.illuminated{fill:#fff16c}.illuminated:hover{fill:#ffef53}.lightsource{fill:#ffb735}.lightsource:hover{fill:#ffae1c}

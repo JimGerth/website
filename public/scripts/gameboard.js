@@ -22,6 +22,7 @@ class Gameboard {
     this.setupNeighbours();
     $(`body`).html($(`body`).html());
     this.setupCallbacks();
+    // this.setupSize();
   }
 
   setupBoard() {
@@ -46,7 +47,8 @@ class Gameboard {
         ) {
           this.cells[y][x] = new Cell(
             id,
-            1,
+            true,
+            null,
             x * xCellOffset + xBoardOffset, // this.scale = x board offset
             y * yCellOffset + yBoardOffset, // 0.86602540378 * this.scale = y board offset
             this.scale
@@ -92,5 +94,15 @@ class Gameboard {
         }
       }
     }
+  }
+
+  setupSize() {
+    $(window).resize(this.resize);
+  }
+
+  resize() {
+    let width = $(`#gameboard`).width();
+    let height = $(`#gameboard`).height();
+    // $(`#gameboard`).attr(`viewBox`, `0 0 ${500} ${500}`);
   }
 }
