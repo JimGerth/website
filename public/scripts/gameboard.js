@@ -1,7 +1,8 @@
 class Gameboard {
-  constructor(size, scale) {
+  constructor(size, scale, board) {
     this.size = size;
     this.scale = scale;
+    this.board = board;
 
     this.rows = 3 * (this.size - 1) + this.size;
     this.cols = 2 * this.size - 1;
@@ -47,8 +48,8 @@ class Gameboard {
         ) {
           this.cells[y][x] = new Cell(
             id,
-            false,
-            `0`,
+            this.board && this.board[id] ? this.board[id].free : true,
+            this.board && this.board[id] ? this.board[id].constraint : null,
             x * xCellOffset + xBoardOffset, // this.scale = x board offset
             y * yCellOffset + yBoardOffset, // 0.86602540378 * this.scale = y board offset
             this.scale
