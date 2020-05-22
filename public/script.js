@@ -1,7 +1,7 @@
 $(document).ready(() => {
   // make the logic server side, if possible?
   new Gameboard(8, 30, {
-    4:   { free: false, constraint: 0 },
+    4:   { free: false, constraint: 2 },
     12:  { free: false, constraint: null },
     16:  { free: false, constraint: null },
     19:  { free: false, constraint: null },
