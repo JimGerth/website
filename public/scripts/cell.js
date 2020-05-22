@@ -50,7 +50,7 @@ class Cell {
       "/>
     `);
     // add optional text displaying the constraint of a cell
-    if (!this.free && this.constraint) {
+    if (!this.free && this.constraint != null) {
       $(`#gameboard`).append(`
         <text x=${this.x} y=${this.y}>
           ${this.constraint}
