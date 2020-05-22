@@ -39,17 +39,24 @@ class Cell {
       ));
     }
     // add a new <polygon> element with correct location and sizing
-    $(`#gameboard`).append(`<polygon
-      id="${this.id}"
-      class="cell"
-      points="
+    $(`#gameboard`).append(`
+      <polygon id="${this.id}" class="cell" points="
         ${points[0].x},${points[0].y}
         ${points[1].x},${points[1].y}
         ${points[2].x},${points[2].y}
         ${points[3].x},${points[3].y}
         ${points[4].x},${points[4].y}
         ${points[5].x},${points[5].y}
-    "/>`);
+      "/>
+    `);
+    // add optional text displaying the constraint of a cell
+    if (!this.free && this.constraint) {
+      $(`#gameboard`).append(`
+        <text x=${this.x} y=${this.y}>
+          ${this.constraint}
+        </text>
+      `);
+    }
     this.update();
   }
 

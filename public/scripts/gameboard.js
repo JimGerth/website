@@ -47,8 +47,8 @@ class Gameboard {
         ) {
           this.cells[y][x] = new Cell(
             id,
-            true,
-            null,
+            false,
+            `0`,
             x * xCellOffset + xBoardOffset, // this.scale = x board offset
             y * yCellOffset + yBoardOffset, // 0.86602540378 * this.scale = y board offset
             this.scale
