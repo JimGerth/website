@@ -23,16 +23,15 @@ class Gameboard {
     this.setupNeighbours();
     $(`body`).html($(`body`).html());
     this.setupCallbacks();
-    // this.setupSize();
+    this.setupSize();
   }
 
   setupBoard() {
     let id = 0;
     let xCellOffset = this.scale * 1.5;
     let yCellOffset = this.scale * 0.86602540378;
-    let padding = 5;
-    let xBoardOffset = this.scale + padding;
-    let yBoardOffset = 0.86602540378 * this.scale + padding;
+    let xBoardOffset = this.scale;
+    let yBoardOffset = 0.86602540378 * this.scale;
     for (let y = 0; y < this.rows; y++) {
       for (let x = 0; x < this.cols; x++) {
         if (
@@ -98,12 +97,17 @@ class Gameboard {
   }
 
   setupSize() {
-    $(window).resize(this.resize);
-  }
-
-  resize() {
-    let width = $(`#gameboard`).width();
-    let height = $(`#gameboard`).height();
-    // $(`#gameboard`).attr(`viewBox`, `0 0 ${500} ${500}`);
+    $(`#gameboard`).attr(
+      `viewBox`,
+      `${
+        -0.5 * this.scale
+      } ${
+        -0.5 * this.scale
+      } ${
+        this.cols * 1.5 * this.scale + 0.5 * this.scale + this.scale
+      } ${
+        (this.rows + 1) * 0.86602540378 * this.scale + this.scale
+      }`
+    );
   }
 }
