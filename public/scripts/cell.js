@@ -115,12 +115,12 @@ class Cell {
 
   updateNeighbours(direction) {
     if (direction) {
-      if (this.neighbours[direction]) {
+      if (this.neighbours[direction] && this.neighbours[direction].free) {
         this.neighbours[direction].update(direction);
       }
     } else {
       for (var dir = 0; dir < 6; dir++) {
-        if (this.neighbours[dir]) {
+        if (this.neighbours[dir] && this.neighbours[dir].free) {
           this.neighbours[dir].update(dir);
         }
       }
