@@ -80,10 +80,12 @@ class Cell {
   }
 
   addCallback() {
-    this.element.mousedown(this.handleClick.bind(this));
+    this.element.on(`mousedown`, this.handleClick.bind(this));
+    this.element.on(`touchstart`, this.handleClick.bind(this));
   }
 
-  handleClick() {
+  handleClick(e) {
+    e.preventDefault();
     if (this.free) {
       switch (INPUT_MODE) {
         case `lightUp`:
