@@ -1,5 +1,6 @@
+let INPUT_MODE = `lightUp`; // lightUp || crossOut || clear
+
 $(document).ready(() => {
-  // make the logic server side, if possible?
   new Gameboard(8, 30, {
     4:   { free: false, constraint: 2 },
     12:  { free: false, constraint: null },

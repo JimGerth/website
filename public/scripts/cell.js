@@ -8,6 +8,7 @@ class Cell {
     this.scale = scale;
 
     this.lightsource = false;
+    this.crossedOut = false;
     this.litUpFrom = [false, false, false, false, false, false];
 
     this.neighbours = [null, null, null, null, null, null]; // this.adjacent?
@@ -70,7 +71,40 @@ class Cell {
 
   handleClick() {
     if (this.free) {
-      this.lightsource = !this.lightsource;
+      switch (INPUT_MODE) {
+        case `lightUp`:
+          if (!this.lightsource) {
+            this.lightsource = true;
+            this.crossedOut = false;
+          } else {
+            this.lightsource = false;
+            INPUT_MODE = `crossOut`;
+            this.crossedOut = true;
+          }
+          break;
+        case `crossOut`:
+          if (!this.crossedOut) {
+            this.crossedOut = true;
+            this.lightsource = false;
+          } else {
+            this.crossedOut = false;
+            INPUT_MODE = `clear`;
+            this.lightsource = false;
+          }
+          break;
+        case `clear`:
+          if (this.lightsource || this.crossedOut) {
+            this.lightsource = false;
+            this.crossedOut = false;
+          } else {
+            this.lightsource = true;
+            INPUT_MODE = `lightUp`;
+            this.crossedOut = false;
+          }
+          break;
+        default:
+          this.lightsource = !this.lightsource;
+      }
     }
     this.update();
   }
@@ -107,6 +141,11 @@ class Cell {
         this.element.addClass(`illuminated`);
       } else {
         this.element.removeClass(`illuminated`);
+      }
+      if (this.crossedOut) {
+        this.element.addClass(`crossedOut`);
+      } else {
+        this.element.removeClass(`crossedOut`);
       }
     } else {
       this.element.addClass(`wall`);
