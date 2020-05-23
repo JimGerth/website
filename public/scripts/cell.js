@@ -80,7 +80,7 @@ class Cell {
   }
 
   addCallback() {
-    this.element.click(this.handleClick.bind(this));
+    this.element.mousedown(this.handleClick.bind(this));
   }
 
   handleClick() {
