@@ -80,8 +80,8 @@ class Cell {
   }
 
   addCallback() {
-    this.element.on(`mousedown`, this.handleClick.bind(this));
-    this.element.on(`touchstart`, this.handleClick.bind(this));
+    this.element.on(`mouseup`, this.handleClick.bind(this));
+    this.element.on(`touchend`, this.handleClick.bind(this));
   }
 
   handleClick(e) {
