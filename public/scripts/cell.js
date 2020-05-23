@@ -50,8 +50,18 @@ class Cell {
         ${points[5].x},${points[5].y}
       "></polygon>
       <g class="cross">
-        <line x1="${this.x - 0.3 * this.scale}" y1="${this.y + 0.3 * this.scale}" x2="${this.x + 0.3 * this.scale}" y2="${this.y - 0.3 * this.scale}" style="stroke:black;stroke-width:1"></line>
-        <line x1="${this.x - 0.3 * this.scale}" y1="${this.y - 0.3 * this.scale}" x2="${this.x + 0.3 * this.scale}" y2="${this.y + 0.3 * this.scale}" style="stroke:black;stroke-width:1"></line>
+        <line style="stroke:black;stroke-width:1"
+          x1="${this.x - 0.3 * this.scale}"
+          y1="${this.y + 0.3 * this.scale}"
+          x2="${this.x + 0.3 * this.scale}"
+          y2="${this.y - 0.3 * this.scale}"
+        ></line>
+        <line style="stroke:black;stroke-width:1"
+          x1="${this.x - 0.3 * this.scale}"
+          y1="${this.y - 0.3 * this.scale}"
+          x2="${this.x + 0.3 * this.scale}"
+          y2="${this.y + 0.3 * this.scale}"
+        ></line>
       </g>
     `);
     // add optional text displaying the constraint of a cell
@@ -81,30 +91,56 @@ class Cell {
             this.lightsource = true;
             this.crossedOut = false;
           } else {
-            this.lightsource = false;
-            INPUT_MODE = `crossOut`;
-            this.crossedOut = true;
+            if (CELL_CHANGED == this.id && PREVIOUS_INPUT_MODE == `crossOut`) {
+              this.lightsource = false;
+              INPUT_MODE = `clear`,
+              this.crossedOut = false;
+            } else {
+              this.lightsource = false;
+              INPUT_MODE = `crossOut`;
+              this.crossedOut = true;
+            }
           }
+          PREVIOUS_INPUT_MODE = `lightUp`;
+          CELL_CHANGED = this.id;
           break;
         case `crossOut`:
           if (!this.crossedOut) {
             this.crossedOut = true;
             this.lightsource = false;
           } else {
-            this.crossedOut = false;
-            INPUT_MODE = `clear`;
-            this.lightsource = false;
+            if (CELL_CHANGED == this.id && PREVIOUS_INPUT_MODE == `lightUp`) {
+              this.crossedOut = false;
+              INPUT_MODE = `clear`,
+              this.lightsource = false;
+            } else {
+              this.crossedOut = false;
+              INPUT_MODE = `lightUp`;
+              this.lightsource = true;
+            }
           }
+          PREVIOUS_INPUT_MODE = `crossOut`;
+          CELL_CHANGED = this.id;
           break;
         case `clear`:
           if (this.lightsource || this.crossedOut) {
             this.lightsource = false;
             this.crossedOut = false;
           } else {
-            this.lightsource = true;
-            INPUT_MODE = `lightUp`;
-            this.crossedOut = false;
+            switch (PREVIOUS_INPUT_MODE) {
+              case `crossOut`:
+                this.lightsource = true;
+                INPUT_MODE = `lightUp`;
+                this.crossedOut = false;
+                break;
+              case `lightUp`:
+                this.crossedOut = true;
+                INPUT_MODE = `crossOut`;
+                this.lightsource = false;
+                break;
+            }
           }
+          CELL_CHANGED = this.id;
           break;
         default:
           this.lightsource = !this.lightsource;

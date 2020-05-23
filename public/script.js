@@ -1,4 +1,6 @@
+let PREVIOUS_INPUT_MODE = `clear`
 let INPUT_MODE = `lightUp`; // lightUp || crossOut || clear
+let CELL_CHANGED = -1;
 
 $(document).ready(() => {
   new Gameboard(8, 30, {
