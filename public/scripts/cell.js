@@ -48,7 +48,11 @@ class Cell {
         ${points[3].x},${points[3].y}
         ${points[4].x},${points[4].y}
         ${points[5].x},${points[5].y}
-      "/>
+      "></polygon>
+      <g class="cross">
+        <line x1="${this.x - 0.3 * this.scale}" y1="${this.y + 0.3 * this.scale}" x2="${this.x + 0.3 * this.scale}" y2="${this.y - 0.3 * this.scale}" style="stroke:black;stroke-width:1"></line>
+        <line x1="${this.x - 0.3 * this.scale}" y1="${this.y - 0.3 * this.scale}" x2="${this.x + 0.3 * this.scale}" y2="${this.y + 0.3 * this.scale}" style="stroke:black;stroke-width:1"></line>
+      </g>
     `);
     // add optional text displaying the constraint of a cell
     if (!this.free && this.constraint != null) {
