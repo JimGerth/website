@@ -87,65 +87,53 @@ class Cell {
     e.preventDefault();
     if (this.free) {
       switch (INPUT_MODE) {
-        case `lightUp`:
-          if (!this.lightsource) {
-            this.lightsource = true;
-            this.crossedOut = false;
-          } else {
-            if (CELL_CHANGED == this.id && PREVIOUS_INPUT_MODE == `crossOut`) {
-              this.lightsource = false;
-              INPUT_MODE = `clear`,
-              this.crossedOut = false;
-            } else {
-              this.lightsource = false;
-              INPUT_MODE = `crossOut`;
-              this.crossedOut = true;
-            }
-          }
-          PREVIOUS_INPUT_MODE = `lightUp`;
-          CELL_CHANGED = this.id;
-          break;
-        case `crossOut`:
-          if (!this.crossedOut) {
-            this.crossedOut = true;
-            this.lightsource = false;
-          } else {
-            if (CELL_CHANGED == this.id && PREVIOUS_INPUT_MODE == `lightUp`) {
-              this.crossedOut = false;
-              INPUT_MODE = `clear`,
-              this.lightsource = false;
-            } else {
-              this.crossedOut = false;
-              INPUT_MODE = `lightUp`;
-              this.lightsource = true;
-            }
-          }
-          PREVIOUS_INPUT_MODE = `crossOut`;
-          CELL_CHANGED = this.id;
-          break;
         case `clear`:
           if (this.lightsource || this.crossedOut) {
             this.lightsource = false;
             this.crossedOut = false;
           } else {
-            switch (PREVIOUS_INPUT_MODE) {
-              case `crossOut`:
-                this.lightsource = true;
-                INPUT_MODE = `lightUp`;
-                this.crossedOut = false;
-                break;
-              case `lightUp`:
-                this.crossedOut = true;
-                INPUT_MODE = `crossOut`;
-                this.lightsource = false;
-                break;
-            }
+            INPUT_MODE = PREVIOUS_INPUT_MODE;
+            this.lightsource = INPUT_MODE == `lightUp`;
+            this.crossedOut = INPUT_MODE == `crossOut`;
+            PREVIOUS_INPUT_MODE = `clear`;
           }
-          CELL_CHANGED = this.id;
+          break;
+        case `lightUp`:
+          if (!this.lightsource || this.crossedOut) {
+            this.lightsource = true;
+            this.crossedOut = false;
+          } else if (CELL_CHANGED == this.id && PREVIOUS_INPUT_MODE == `crossOut`) {
+            INPUT_MODE = `clear`;
+            this.lightsource = false;
+            this.crossedOut = false;
+            PREVIOUS_INPUT_MODE = `lightUp`;
+          } else {
+            INPUT_MODE = `crossOut`;
+            this.lightsource = false;
+            this.crossedOut = true;
+            PREVIOUS_INPUT_MODE = `lightUp`;
+          }
+          break;
+        case `crossOut`:
+          if (this.lightsource || !this.crossedOut) {
+            this.lightsource = false;
+            this.crossedOut = true;
+          } else if (CELL_CHANGED == this.id && PREVIOUS_INPUT_MODE == `lightUp`) {
+            INPUT_MODE = `clear`;
+            this.lightsource = false;
+            this.crossedOut = false;
+            PREVIOUS_INPUT_MODE = `crossOut`;
+          } else {
+            INPUT_MODE = `lightUp`;
+            this.lightsource = true;
+            this.crossedOut = false;
+            PREVIOUS_INPUT_MODE = `crossOut`;
+          }
           break;
         default:
           this.lightsource = !this.lightsource;
       }
+      CELL_CHANGED = this.id;
     }
     this.update();
   }
