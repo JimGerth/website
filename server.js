@@ -5,7 +5,37 @@ const PORT = process.env.PORT || 8000;
 app.use(express.static('public'));
 
 app.get('/akari/hexagonal/:num', (req, res) => {
-  // TODO: somehow open akari page with the correct board data 
+  res.send(`<!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <head>
+        <meta charset="utf-8">
+        <title>Jim Gerth</title>
+        <link rel="stylesheet" href="/style/css/master.css">
+        <script type="text/javascript" src="/libraries/jquery.js"></script>
+        <script type="text/javascript" src="/scripts/direction.js"></script>
+        <script type="text/javascript" src="/scripts/point.js"></script>
+        <script type="text/javascript" src="/scripts/cell.js"></script>
+        <script type="text/javascript" src="/scripts/gameboard.js"></script>
+        <script type="text/javascript">
+          let PREVIOUS_INPUT_MODE = 'clear';
+          let INPUT_MODE = 'lightUp';
+          let CELL_CHANGED = -1;
+
+          $(document).ready(() => {
+            $.getJSON('/data/akari/hexagonal/${req.params.num}', data => {
+              new Gameboard(8, 30, data);
+            });
+          });
+        </script>
+      </head>
+      <body>
+
+        <svg id="gameboard">
+        </svg>
+
+      </body>
+    </html>
+  `);
 });
 
 app.get('/data/akari/hexagonal/:num', (req, res) => {
