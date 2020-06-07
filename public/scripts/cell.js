@@ -91,7 +91,11 @@ class Cell {
           if (!this.lightsource || this.crossedOut) {
             this.lightsource = true;
             this.crossedOut = false;
-          } else if (CELL_CHANGED == this.id && PREVIOUS_CELL_CHANGED == this.id && PREVIOUS_INPUT_MODE == `crossOut`) {
+          } else if (
+            CELL_CHANGED == this.id &&
+            PREVIOUS_CELL_CHANGED == this.id &&
+            PREVIOUS_INPUT_MODE == `crossOut`
+          ) {
             INPUT_MODE = `clear`;
             this.lightsource = false;
             this.crossedOut = false;
@@ -107,7 +111,11 @@ class Cell {
           if (this.lightsource || !this.crossedOut) {
             this.lightsource = false;
             this.crossedOut = true;
-          } else if (CELL_CHANGED == this.id && PREVIOUS_CELL_CHANGED == this.id && PREVIOUS_INPUT_MODE == `lightUp`) {
+          } else if (
+            CELL_CHANGED == this.id &&
+            PREVIOUS_CELL_CHANGED == this.id &&
+            PREVIOUS_INPUT_MODE == `lightUp`
+          ) {
             INPUT_MODE = `clear`;
             this.lightsource = false;
             this.crossedOut = false;
