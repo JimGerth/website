@@ -23,6 +23,7 @@ router.get('/:id', (req, res) => {
         <script type="text/javascript">
           let PREVIOUS_INPUT_MODE = 'clear';
           let INPUT_MODE = 'lightUp';
+          let PREVIOUS_CELL_CHANGED = -1;
           let CELL_CHANGED = -1;
 
           $(document).ready(() => {

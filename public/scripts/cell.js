@@ -87,22 +87,11 @@ class Cell {
     e.preventDefault();
     if (this.free) {
       switch (INPUT_MODE) {
-        case `clear`:
-          if (this.lightsource || this.crossedOut) {
-            this.lightsource = false;
-            this.crossedOut = false;
-          } else {
-            INPUT_MODE = PREVIOUS_INPUT_MODE;
-            this.lightsource = INPUT_MODE == `lightUp`;
-            this.crossedOut = INPUT_MODE == `crossOut`;
-            PREVIOUS_INPUT_MODE = `clear`;
-          }
-          break;
         case `lightUp`:
           if (!this.lightsource || this.crossedOut) {
             this.lightsource = true;
             this.crossedOut = false;
-          } else if (CELL_CHANGED == this.id && PREVIOUS_INPUT_MODE == `crossOut`) {
+          } else if (CELL_CHANGED == this.id && PREVIOUS_CELL_CHANGED == this.id && PREVIOUS_INPUT_MODE == `crossOut`) {
             INPUT_MODE = `clear`;
             this.lightsource = false;
             this.crossedOut = false;
@@ -118,7 +107,7 @@ class Cell {
           if (this.lightsource || !this.crossedOut) {
             this.lightsource = false;
             this.crossedOut = true;
-          } else if (CELL_CHANGED == this.id && PREVIOUS_INPUT_MODE == `lightUp`) {
+          } else if (CELL_CHANGED == this.id && PREVIOUS_CELL_CHANGED == this.id && PREVIOUS_INPUT_MODE == `lightUp`) {
             INPUT_MODE = `clear`;
             this.lightsource = false;
             this.crossedOut = false;
@@ -130,10 +119,32 @@ class Cell {
             PREVIOUS_INPUT_MODE = `crossOut`;
           }
           break;
+        case `clear`:
+          if (this.lightsource || this.crossedOut) {
+            this.lightsource = false;
+            this.crossedOut = false;
+          } else {
+            switch (PREVIOUS_INPUT_MODE) {
+              case `lightUp`:
+                INPUT_MODE = `crossOut`;
+                this.lightsource = false;
+                this.crossedOut = true;
+                break;
+              case `crossOut`:
+                INPUT_MODE = `lightUp`;
+                this.lightsource = true;
+                this.crossedOut = false;
+                break;
+            }
+            PREVIOUS_INPUT_MODE = `clear`;
+          }
+          break;
         default:
           this.lightsource = !this.lightsource;
       }
+      PREVIOUS_CELL_CHANGED = CELL_CHANGED;
       CELL_CHANGED = this.id;
+      console.log(PREVIOUS_INPUT_MODE);
     }
     this.update();
   }
