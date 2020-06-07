@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8000;
 
+const { crc24 } = require('crc');
+const hash = val => crc24(val.toString()).toString(16).toUpperCase();
+
+
 app.use(express.static('public'));
 
 app.get('/akari/hexagonal/:num', (req, res) => {
