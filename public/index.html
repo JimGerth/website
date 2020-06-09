@@ -1,20 +1,46 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Jim Gerth</title>
-    <script type="text/javascript" src="libraries/jquery.js"></script>
-    <script type="text/javascript" src="scripts/direction.js"></script>
-    <script type="text/javascript" src="scripts/point.js"></script>
-    <script type="text/javascript" src="scripts/cell.js"></script>
-    <script type="text/javascript" src="scripts/gameboard.js"></script>
-    <script type="text/javascript" src="script.js"></script>
-    <link rel="stylesheet" href="style/css/master.css">
-  </head>
-  <body>
+  <html lang="en" dir="ltr">
+    <head>
+      <meta charset="utf-8">
+      <title>Jim Gerth</title>
+      <style>
+        html, body {
+          margin: 0;
+          padding: 5vh 0 0 0;
+        }
+        #list {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        a {
+          text-align: center;
+          text-decoration: none;
+          font-family: sans-serif;
+          font-weight: bold;
+          font-size: 4em;
+          width: 66vw;
+          margin: 2vh 0;
+          padding: 5vh 20px;
+          color: black;
+          background-color: white;
+          border-radius: 20px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          transition: box-shadow 50ms ease-out, transform 50ms ease-out;
+        }
+        a:hover {
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          transform: scale(0.99);
+        }
+      </style>
+    </head>
+    <body>
 
-    <svg id="gameboard">
-    </svg>
+      <div id="list">
+        <a href="/">Jim Gerth</a>
+        <a href="/akari">Akari</a>
+        <a>...</a>
+      </div>
 
-  </body>
-</html>
+    </body>
+  </html>
