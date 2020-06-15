@@ -131,7 +131,7 @@ router.get('/akari/:id', (req, res) => {
       break;
     case hash(5):
       res.json({
-        5   : { free: false, constraint: 1    },
+        0   : { free: false, constraint: 0    },
         16  : { free: false, constraint: 2    },
         26  : { free: false, constraint: 1    },
         81  : { free: false, constraint: 2    },
