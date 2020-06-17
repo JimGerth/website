@@ -142,6 +142,33 @@ router.get('/akari/:id', (req, res) => {
         160 : { free: false, constraint: 2    }
       });
       break;
+    case hash(6):
+      res.json({
+        0   : { free: false, constraint: null },
+        4   : { free: false, constraint: null },
+        12  : { free: false, constraint: null },
+        14  : { free: false, constraint: 1    },
+        24  : { free: false, constraint: null },
+        35  : { free: false, constraint: 0    },
+        39  : { free: false, constraint: null },
+        40  : { free: false, constraint: 2    },
+        54  : { free: false, constraint: null },
+        57  : { free: false, constraint: null },
+        69  : { free: false, constraint: null },
+        86  : { free: false, constraint: 2    },
+        95  : { free: false, constraint: 0    },
+        99  : { free: false, constraint: null },
+        114 : { free: false, constraint: null },
+        129 : { free: false, constraint: null },
+        144 : { free: false, constraint: null },
+        147 : { free: false, constraint: 1    },
+        152 : { free: false, constraint: 1    },
+        156 : { free: false, constraint: null },
+        157 : { free: false, constraint: null },
+        164 : { free: false, constraint: null },
+        168 : { free: false, constraint: null },
+      });
+      break;
     default:
       res.status(404).end();
   }

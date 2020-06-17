@@ -54,6 +54,9 @@ router.get('/', (req, res) => {
           #a5 {
             background-color: #bd5ca9;
           }
+          #a6 {
+            background-color: #b1c55f;
+          }
         </style>
       </head>
       <body>
@@ -64,6 +67,7 @@ router.get('/', (req, res) => {
           <a id="a3" href="/akari/a46f45">3</a>
           <a id="a4" href="/akari/3b1052">4</a>
           <a id="a5" href="/akari/bd5ca9">5</a>
+          <a id="a6" href="/akari/b1c55f">6</a>
           <a>...</a>
         </div>
 
